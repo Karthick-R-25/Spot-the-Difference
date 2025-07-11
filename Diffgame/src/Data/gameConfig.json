@@ -1,8 +1,8 @@
 {
   "gameTitle": "Spot the Difference ",
    "images": [
-     "/assets/winterimg1.jpg",
-    "/assets/winterimg2.jpg"
+    "winterimg1.jpg",
+    "winterimg2.jpg"
    ],
   "differences": [
     {

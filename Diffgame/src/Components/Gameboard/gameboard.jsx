@@ -9,7 +9,7 @@ export default function GameBoard({
   onImageLoad
 }) {
   return (
-    <div className="flex justify-center gap-6 mt-9 relative">
+    <div className="lg:flex justify-center gap-6 mt-9 relative">
       {images.map((src, index) => (
         <div key={index} className="relative">
           <img
@@ -21,36 +21,35 @@ export default function GameBoard({
             onLoad={index === 0 ? onImageLoad : null}
           />
 
-          {/* Render overlays ONLY if imageRef is available */}
-          {imageRef?.current &&
-            foundDiffs.map((diffIndex) => {
-              const diff = differences[diffIndex];
-              if (!diff) return null;
+          {/* Show overlays on both images, based on left image scaling */}
+          {imageRef?.current && foundDiffs.map((diffIndex) => {
+            const diff = differences[diffIndex];
+            if (!diff) return null;
 
-              const img = imageRef.current;
-              if (!img.naturalWidth || !img.naturalHeight) return null;
+            const img = imageRef.current;
+            if (!img.naturalWidth || !img.naturalHeight) return null;
 
-              const scaleX = img.width / img.naturalWidth;
-              const scaleY = img.height / img.naturalHeight;
+            const scaleX = img.width / img.naturalWidth;
+            const scaleY = img.height / img.naturalHeight;
 
-              const scaledX = diff.x * scaleX;
-              const scaledY = diff.y * scaleY;
-              const scaledW = diff.width * scaleX;
-              const scaledH = diff.height * scaleY;
+            const scaledX = diff.x * scaleX;
+            const scaledY = diff.y * scaleY;
+            const scaledW = diff.width * scaleX;
+            const scaledH = diff.height * scaleY;
 
-              return (
-                <div
-                  key={`${index}-${diffIndex}`}
-                  className="absolute rounded-md border-5 border-green-500 animate-pulse pointer-events-none"
-                  style={{
-                    top: scaledY,
-                    left: scaledX,
-                    width: scaledW,
-                    height: scaledH,
-                  }}
-                />
-              );
-            })}
+            return (
+              <div
+                key={`${index}-${diffIndex}`}
+                className="absolute border-4 border-green-500 rounded-md animate-pulse pointer-events-none"
+                style={{
+                  top: scaledY,
+                  left: scaledX,
+                  width: scaledW,
+                  height: scaledH,
+                }}
+              />
+            );
+          })}
         </div>
       ))}
     </div>
